@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Хуяк™</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            margin: 0;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        button {
+            width: 100vw;
+            height: 100vh;
+            font-size: 60px;
+            font-weight: bold;
+            background: #111;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            outline: none;
+            transition: 0.1s;
+        }
+
+        button:active {
+            background: #ff0000;
+            color: #000;
+        }
+    </style>
+</head>
+
+<body>
+
+<button id="btn">ХУЯК</button>
+
+<audio id="sound" src="sound.mp3" preload="auto"></audio>
+
+<script>
+    const btn = document.getElementById("btn");
+    const sound = document.getElementById("sound");
+
+    btn.addEventListener("click", () => {
+        sound.currentTime = 0;
+        sound.play().catch(e => console.log(e));
+        navigator.vibrate?.(100); // вибрация если устройство поддерживает
+    });
+</script>
+
+</body>
+</html>
