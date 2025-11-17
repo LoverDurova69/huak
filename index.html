@@ -1,56 +1,79 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <title>Хуяк™</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>😈</title>
+<style>
+    body {
+        background: black;
+        margin: 0;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        user-select: none;
+    }
 
-    <style>
-        body {
-            margin: 0;
-            background: #000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            overflow: hidden;
-        }
+    #btn {
+        width: 100vw;
+        height: 100vh;
+        background: red;
+        color: white;
+        border: none;
+        font-size: 60px;
+        font-weight: bold;
+    }
 
-        button {
-            width: 100vw;
-            height: 100vh;
-            font-size: 60px;
-            font-weight: bold;
-            background: #111;
-            border: none;
-            color: #fff;
-            cursor: pointer;
-            outline: none;
-            transition: 0.1s;
-        }
+    .shake {
+        animation: shake 0.25s;
+    }
 
-        button:active {
-            background: #ff0000;
-            color: #000;
-        }
-    </style>
+    @keyframes shake {
+        0% { transform: translate(0px,0px); }
+        25% { transform: translate(-20px,5px); }
+        50% { transform: translate(15px,-20px); }
+        75% { transform: translate(-10px,-5px); }
+        100% { transform: translate(0px,0px); }
+    }
+</style>
 </head>
-
 <body>
 
-<button id="btn">ХУЯК</button>
-
-<audio id="sound" src="sound.mp3" preload="auto"></audio>
+<button id="btn">😈</button>
 
 <script>
-    const btn = document.getElementById("btn");
-    const sound = document.getElementById("sound");
+const sounds = [
+    "1.mp3",
+    "2.mp3",
+    "3.mp3",
+    "4.mp3",
+    "5.mp3"
+];
 
-    btn.addEventListener("click", () => {
-        sound.currentTime = 0;
-        sound.play().catch(e => console.log(e));
-        navigator.vibrate?.(100); // вибрация если устройство поддерживает
-    });
+document.body.requestFullscreen?.();
+
+function chaos(){
+    const audio = new Audio(sounds[Math.floor(Math.random()*sounds.length)]);
+    
+    // рандом громкость 30% - 100%
+    audio.volume = Math.random() * 0.7 + 0.3;
+
+    // рандом задержка чтобы victim не знал когда бахнет
+    setTimeout(() => audio.play(), Math.random() * 1500);
+
+    // вибрация (если есть)
+    if (navigator.vibrate) navigator.vibrate([80,40,80,150]);
+
+    // тряска экрана
+    document.body.classList.add("shake");
+    setTimeout(()=> document.body.classList.remove("shake"), 300);
+
+    // кнопка исчезает навсегда
+    document.getElementById("btn").style.display = "none";
+}
+
+document.getElementById("btn").addEventListener("click", chaos);
 </script>
 
 </body>
